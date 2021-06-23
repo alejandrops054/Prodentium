@@ -1,0 +1,8 @@
+# Canonicalise the URL - remove www and redirect to HTTPS
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_Host} ^www\. [NC]
+RewriteCond %{HTTP_Host} ^(?:www\.)?(.+)$ [NC]
+RewriteRule ^ https://%1%{REQUEST_URI} [L,NE,R=301]
+
+# Internally rewrite the "pretty" URL
+RewriteRule ^([-a-zA-Z0-9ñÑ_/]+)$ index.php?ruta=$1
